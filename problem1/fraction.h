@@ -20,4 +20,6 @@ class Fraction{
     Fraction double2Fraction(double val);
 };
 
+made a change
+
 #endif
