@@ -88,7 +88,7 @@ long long gcd(long long a, long long b)
         return gcd(b, a % b);
 }
 
-double Fraction::double2Fraction(double frac2){
+void Fraction::double2Fraction(double frac2){
     Fraction fraction;
     double fractionPart = frac2 - (long)frac2;
     int N = frac2 - fractionPart;
@@ -108,5 +108,4 @@ double Fraction::double2Fraction(double frac2){
     //cout << (N * D) + NU << "/" << D << endl;
 
     fraction.print(N, D, NU);
-    return true;
 }
