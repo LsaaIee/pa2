@@ -8,16 +8,16 @@ class Fraction{
     int NU;
 
   public:
-    Fraction sum(Fraction b);
-    Fraction sum(double b);
-    Fraction multiply(Fraction b);
-    Fraction multiply(double b);
-    void abbreviation();
-    bool toMixedNum();
-    void print();
+    Fraction sum(Fraction);
+    Fraction sum(double);
+    Fraction multiply(Fraction);
+    Fraction multiply(double);
+    void abbreviation(int, int, int);
+    bool toMixedNum(int, int, int);
+    void print(int, int, int);
     double toDouble();
-    Fraction str2Fraction(string str);
-    Fraction double2Fraction(double val);
+    Fraction str2Fraction(string);
+    double double2Fraction(double);
 };
 
 #endif
