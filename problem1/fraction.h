@@ -16,7 +16,7 @@ class Fraction{
     bool toMixedNum(int, int, int);
     void print(int, int, int);
     double toDouble();
-    Fraction str2Fraction(string);
+    //Fraction str2Fraction(string);
     double double2Fraction(double);
 };
 

@@ -41,8 +41,6 @@ void Fraction::abbreviation(int N, int NU, int D){
         }
     }
 
-    cout << gcd << endl;
-
     NU = NU/gcd;
     D = D/gcd;
 
@@ -77,10 +75,38 @@ Fraction::str2Fraction(string frac1){
     int D = stoi(token[2]);
 }
 */
-double Fraction::double2Fraction(double frac2){
-    double fractionPart = frac2 - (long)frac2;
-    cout << fractionPart << endl;
-    
 
+long long gcd(long long a, long long b)
+{
+    if (a == 0)
+        return b;
+    else if (b == 0)
+        return a;
+    if (a < b)
+        return gcd(a, b % a);
+    else
+        return gcd(b, a % b);
+}
+
+double Fraction::double2Fraction(double frac2){
+    Fraction fraction;
+    double fractionPart = frac2 - (long)frac2;
+    int N = frac2 - fractionPart;
+
+    const long pVal = 1000000000;
+ 
+    // Calculate GCD of integral
+    // equivalent of fractional
+    // part and precision value
+    long long gcdVal = gcd((fractionPart * pVal), pVal);
+ 
+    // Calculate num and deno
+    long long NU = (fractionPart * pVal) / gcdVal;
+    long long D = pVal / gcdVal;
+ 
+    // Print the fraction
+    //cout << (N * D) + NU << "/" << D << endl;
+
+    fraction.print(N, D, NU);
     return true;
 }
