@@ -1,5 +1,7 @@
 #ifndef FRACTION_H
 #define FRACTION_H
+#include <string>
+using namespace std;
 
 class Fraction{
   private: 
@@ -14,10 +16,11 @@ class Fraction{
     Fraction multiply(double);
     void abbreviation();
     bool toMixedNum(int, int, int);
-    void print(int, int, int);
+    void print();
     double toDouble();
-    //Fraction str2Fraction(string);
-    void double2Fraction(double);
+    Fraction str2Fraction(string);
+    Fraction double2Fraction(double);
+    
     int get_N() const;
     int get_D() const;
     int get_NU() const;

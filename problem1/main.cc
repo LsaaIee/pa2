@@ -12,28 +12,9 @@ int main(){
   getline(cin, frac1);
   cin >> frac2;
   
-  //fraction.str2Fraction(frac1);
-  size_t pos = 0;
-  string delimiter = "/";
-  string token[3];
-
-  while ((pos = frac1.find(delimiter)) != string::npos){
-      for (int i = 0; i < 3; i++){
-        token[i] = frac1.substr(0, pos);
-        frac1.erase(0, pos + delimiter.length());
-      }
-  }
-
-  int fst = stoi(token[0]);
-  int snd = stoi(token[1]);
-  int thr = stoi(token[2]);
-  fraction.set_N(fst);
-  fraction.set_NU(snd);
-  fraction.set_D(thr);
-  
-
+  fraction.str2Fraction(frac1);
   fraction.abbreviation();
-  //fraction.double2Fraction(frac2);
+  fraction.double2Fraction(frac2);
   //fraction.toMixedNum(frac2);
 
   return 0;

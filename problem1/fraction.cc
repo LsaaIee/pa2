@@ -5,34 +5,41 @@
 using namespace std;
 
 //Implement Member Functions
-/*void Fraction::sum(Fraction b){
+Fraction Fraction::sum(Fraction b){
+    //Fraction fraction;
+    int N = get_N();
+    int D = get_D();
+    int NU = get_NU();
+
+    cout << N << endl;
+    cout << D << endl;
+    cout << NU << endl;
+}
+/*
+Fraction Fraction::sum(double b){
 
 }
 
-void Fraction::sum(double b){
+Fraction Fraction::multiply(Fraction b){
 
 }
 
-void Fraction::multiply(Fraction b){
-
-}
-
-void Fraction::multiply(double b){
+Fraction Fraction::multiply(double b){
 
 }
 */
 void Fraction::abbreviation(){
     int gcd;
-    Fraction fraction;
+    //Fraction fraction;
 
+    int N = get_N();
     int D = get_D();
     int NU = get_NU();
 
     if (D == 0){
         cout << "Incorrect Input!" << endl;
     }
-
-    if (D > NU) {   
+    else if (D > NU) {   
         int temp = D;
         D = NU;
         NU = temp;
@@ -47,22 +54,28 @@ void Fraction::abbreviation(){
     NU = NU/gcd;
     D = D/gcd;
 
-    fraction.print(N, NU, D);
+    cout << N << " and " << D << "/" << NU << endl;
+    //fraction.print();
 }
 /*
 bool Fraction::toMixedNum(int N, int NU, int D){
     
 }
-*/
-void Fraction::print(int N, int NU, int D){
+
+void Fraction::print(){
+    int N = get_N();
+    int D = get_D();
+    int NU = get_NU();
+
     cout << N << " and " << D << "/" << NU << endl;
 }
-/*
+*/
 double Fraction::toDouble(){
-
+    double value; 
+    
 }
 
-Fraction::str2Fraction(string frac1){
+Fraction Fraction::str2Fraction(string frac1){
     size_t pos = 0;
     string delimiter = "/";
     string token[3];
@@ -73,11 +86,13 @@ Fraction::str2Fraction(string frac1){
         frac1.erase(0, pos + delimiter.length());
         }
     }
-    int N = stoi(token[0]);
-    int NU = stoi(token[1]);
-    int D = stoi(token[2]);
+    int fst = stoi(token[0]);
+    int snd = stoi(token[1]);
+    int thr = stoi(token[2]);
+    Fraction::set_N(fst);
+    Fraction::set_NU(snd);
+    Fraction::set_D(thr);
 }
-*/
 
 long long gcd(long long a, long long b)
 {
@@ -91,8 +106,8 @@ long long gcd(long long a, long long b)
         return gcd(b, a % b);
 }
 
-void Fraction::double2Fraction(double frac2){
-    Fraction fraction;
+Fraction Fraction::double2Fraction(double frac2){
+    //Fraction fraction;
     double fractionPart = frac2 - (long)frac2;
     int N = frac2 - fractionPart;
 
@@ -109,8 +124,9 @@ void Fraction::double2Fraction(double frac2){
  
     // Print the fraction
     //cout << (N * D) + NU << "/" << D << endl;
+    cout << N << " and " << NU << "/" << D << endl;
 
-    fraction.print(N, D, NU);
+    //fraction.print();
 }
 
 int Fraction::get_N() const {
