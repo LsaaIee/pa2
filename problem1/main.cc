@@ -15,7 +15,7 @@ int main(){
   fraction.str2Fraction(frac1);
   fraction.abbreviation();
   fraction.double2Fraction(frac2);
-  //fraction.toMixedNum(frac2);
+  fraction.toDouble();
 
   return 0;
 }

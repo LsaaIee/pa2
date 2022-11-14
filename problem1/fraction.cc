@@ -5,6 +5,7 @@
 using namespace std;
 
 //Implement Member Functions
+/*
 Fraction Fraction::sum(Fraction b){
     //Fraction fraction;
     int N = get_N();
@@ -15,7 +16,7 @@ Fraction Fraction::sum(Fraction b){
     cout << D << endl;
     cout << NU << endl;
 }
-/*
+
 Fraction Fraction::sum(double b){
 
 }
@@ -72,7 +73,20 @@ void Fraction::print(){
 */
 double Fraction::toDouble(){
     double value; 
+    double NU = get_NU();
+    double D = get_D();
+    double N = get_N();
     
+    if (N < 0){
+        value = NU/D;
+    }
+    else {
+        NU += N*D;
+        value = NU/D;
+    }
+    cout << value << endl;
+
+    return value;
 }
 
 Fraction Fraction::str2Fraction(string frac1){
@@ -92,6 +106,8 @@ Fraction Fraction::str2Fraction(string frac1){
     Fraction::set_N(fst);
     Fraction::set_NU(snd);
     Fraction::set_D(thr);
+
+    //return Fraction::str2Fraction(frac1);
 }
 
 long long gcd(long long a, long long b)
@@ -126,6 +142,7 @@ Fraction Fraction::double2Fraction(double frac2){
     //cout << (N * D) + NU << "/" << D << endl;
     cout << N << " and " << NU << "/" << D << endl;
 
+    //return Fraction::double2Fraction(frac2);
     //fraction.print();
 }
 
