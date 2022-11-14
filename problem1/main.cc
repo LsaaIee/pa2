@@ -24,13 +24,16 @@ int main(){
       }
   }
 
-  int N = stoi(token[0]);
-  int NU = stoi(token[1]);
-  int D = stoi(token[2]);
+  int fst = stoi(token[0]);
+  int snd = stoi(token[1]);
+  int thr = stoi(token[2]);
+  fraction.set_N(fst);
+  fraction.set_NU(snd);
+  fraction.set_D(thr);
   
 
-  fraction.abbreviation(N, NU, D);
-  fraction.double2Fraction(frac2);
+  fraction.abbreviation();
+  //fraction.double2Fraction(frac2);
   //fraction.toMixedNum(frac2);
 
   return 0;

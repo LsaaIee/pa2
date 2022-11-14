@@ -21,9 +21,12 @@ void Fraction::multiply(double b){
 
 }
 */
-void Fraction::abbreviation(int N, int NU, int D){
+void Fraction::abbreviation(){
     int gcd;
     Fraction fraction;
+
+    int D = get_D();
+    int NU = get_NU();
 
     if (D == 0){
         cout << "Incorrect Input!" << endl;
@@ -108,4 +111,23 @@ void Fraction::double2Fraction(double frac2){
     //cout << (N * D) + NU << "/" << D << endl;
 
     fraction.print(N, D, NU);
+}
+
+int Fraction::get_N() const {
+    return N;
+}
+void Fraction::set_N(int N){
+    this->N = N;
+}
+int Fraction::get_D() const {
+    return D;
+}
+void Fraction::set_D(int D){
+    this->D = D;
+}
+int Fraction::get_NU() const {
+    return NU;
+}
+void Fraction::set_NU(int NU){
+    this->NU = NU;
 }
