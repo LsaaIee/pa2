@@ -15,7 +15,7 @@ class Fraction{
     Fraction multiply(Fraction);
     Fraction multiply(double);
     void abbreviation();
-    bool toMixedNum(int, int, int);
+    bool toMixedNum();
     void print();
     double toDouble();
     Fraction str2Fraction(string);
@@ -27,6 +27,13 @@ class Fraction{
     void set_N(int N);
     void set_D(int D);
     void set_NU(int NU);
+
+    void printAbbre();
 };
+
+class frac1: public Fraction{
+  public:
+    
+}
 
 #endif

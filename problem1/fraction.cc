@@ -29,6 +29,16 @@ Fraction Fraction::multiply(double b){
 
 }
 */
+void Fraction::printAbbre(){
+    Fraction fraction;
+    fraction.set_N(N);
+    fraction.set_D(D);
+    fraction.set_NU(NU);
+    
+    fraction.abbreviation();
+    fraction.print();
+}
+
 void Fraction::abbreviation(){
     int gcd;
     Fraction fraction;
@@ -49,19 +59,34 @@ void Fraction::abbreviation(){
     fraction.set_N(N);
     fraction.set_D(D);
     fraction.set_NU(NU);
+}
 
-    fraction.print();
+bool Fraction::toMixedNum(){
+    if (NU >= D){
+        N += (NU/D);
+        NU = (NU/D)*D;
+        if (NU == 0){
+            D = 0;
+        }
+        return true;
+    }
+    else {
+        if (NU == 0){
+            D = 0;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
-/*
-bool Fraction::toMixedNum(int N, int NU, int D){
-    
-}
-*/
+
 void Fraction::print(){
     cout << N << " and " << NU << "/" << D << endl;
 }
 
 double Fraction::toDouble(){
+    Fraction fraction;
     double value;
     double i = (double)N;
     double j = (double)NU;
@@ -75,6 +100,12 @@ double Fraction::toDouble(){
         value = j/k;
     }
 
+    fraction.set_N(N);
+    fraction.set_D(D);
+    fraction.set_NU(NU);
+
+    fraction.abbreviation();
+    fraction.toMixedNum();
     cout << value << endl;
 
     return value;

@@ -13,7 +13,7 @@ int main(){
   cin >> frac2;
   
   fraction.str2Fraction(frac1);
-  fraction.abbreviation();
+  fraction.printAbbre();
   fraction.double2Fraction(frac2);
   fraction.toDouble();
 
