@@ -31,9 +31,5 @@ class Fraction{
     void printAbbre();
 };
 
-class frac1: public Fraction{
-  public:
-    
-}
 
 #endif
