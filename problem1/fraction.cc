@@ -5,30 +5,87 @@
 using namespace std;
 
 //Implement Member Functions
-/*
-Fraction Fraction::sum(Fraction b){
-    //Fraction fraction;
-    int N = get_N();
-    int D = get_D();
-    int NU = get_NU();
 
-    cout << N << endl;
-    cout << D << endl;
-    cout << NU << endl;
+Fraction Fraction::sum(Fraction b){
+    Fraction obj;
+    obj.set_N(N);
+    obj.set_NU(NU);
+    obj.set_D(D);
+
+    obj.N += N;
+    obj.NU += NU;
+
+    if (obj.NU >= obj.D){
+        if (obj.NU%obj.D == 0){
+            obj.N += obj.NU/obj.D;
+            obj.NU = 0;
+            obj.D = 0;
+        }
+        else if (obj.NU%obj.D != 0){
+            obj.N += obj.NU/obj.D;
+            obj.NU -= obj.D;
+        }
+    }
+    obj.abbreviation();
+    obj.print();
+
+    return obj;
 }
 
 Fraction Fraction::sum(double b){
+    Fraction fraction(b);
 
+    fraction.N += this->N;
+    fraction.NU *= this->D;
+    fraction.NU += fraction.D*this->NU;
+    fraction.D *= this->D;
+
+    if (fraction.NU >= fraction.D){
+        if (this->NU%this->D == 0){
+            fraction.N += this->NU/this->D;
+            this->NU = 0;
+            this->D = 0;
+        }
+        else if (fraction.NU%fraction.D != 0){
+            this->N += this->NU/this->D;
+            this->NU -= this->D;
+        }
+    }
+    fraction.abbreviation();
+    fraction.print();
 }
 
 Fraction Fraction::multiply(Fraction b){
+    Fraction fraction;
+    fraction = b;
+    this->NU += this->N*this->D;
+    fraction.NU += fraction.N*fraction.D;
+    fraction.N = 0;
+    this->N = 0;
 
+    fraction.D *= this->D;
+    fraction.NU *= this->NU;
+
+    fraction.abbreviation();
+    fraction.toMixedNum();
+    fraction.print();
 }
 
 Fraction Fraction::multiply(double b){
+    Fraction fraction(b);
+    this->NU += this->N*this->D;
+    fraction.NU += fraction.N*fraction.D;
+    fraction.N = 0;
+    this->N = 0;
 
+    fraction.D *= this->D;
+    fraction.NU *= this->NU;
+
+    fraction.abbreviation();
+    fraction.toMixedNum();
+    fraction.print();
 }
-*/
+
 void Fraction::printAbbre(){
     Fraction fraction;
     fraction.set_N(N);
@@ -63,7 +120,7 @@ void Fraction::abbreviation(){
 bool Fraction::toMixedNum(){
     if (NU >= D){
         N += (NU/D);
-        NU = (NU/D)*D;
+        NU = NU%D;
         if (NU == 0){
             D = 0;
         }
@@ -85,10 +142,10 @@ void Fraction::print(){
 }
 
 double Fraction::toDouble(){
-    double value;
+    double value;  
 
-    if (this->N < 0){
-        value = this->NU/this->D;
+    if (N < 0){
+        value = NU/D;
     }
     else {
         NU += N*D;
@@ -97,6 +154,7 @@ double Fraction::toDouble(){
 
     abbreviation();
     toMixedNum();
+    
     cout.setf(ios::fixed, ios::floatfield);
     cout.precision(7);
     cout << value << endl;
@@ -111,18 +169,27 @@ Fraction Fraction::str2Fraction(string frac1){
 
     while ((pos = frac1.find(delimiter)) != string::npos){
         for (int i = 0; i < 3; i++){
-        token[i] = frac1.substr(0, pos);
-        frac1.erase(0, pos + delimiter.length());
+            if (i == 2){
+                token[i] = frac1;
+            }
+            else {
+                token[i] = frac1.substr(0, pos);
+            frac1.erase(0, pos + delimiter.length());
+            }            
         }
     }
-
     int fst = stoi(token[0]);
     int snd = stoi(token[1]);
     int thr = stoi(token[2]);
 
-    set_N(fst);
-    set_NU(snd);
-    set_D(thr);
+    if (thr == 0){
+        cout << "Invalid input!" << endl;
+    }
+    else {
+        set_N(fst);
+        set_NU(snd);
+        set_D(thr);
+    }
 }
 
 long long gcd(long long a, long long b)
@@ -153,12 +220,17 @@ Fraction Fraction::double2Fraction(double frac2){
     long long NU = (fractionPart * pVal) / gcdVal;
     long long D = pVal / gcdVal;
     
+
+    set_N(N);
+    set_D(D);
+    set_NU(NU);
+
     fraction.set_N(N);
     fraction.set_NU(NU);
     fraction.set_D(D);
 
     // Print the fraction
-    fraction.print();
+    //print();
 
     return fraction;
 }
