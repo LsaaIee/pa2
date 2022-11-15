@@ -34,30 +34,52 @@ Fraction Fraction::sum(Fraction b){
 
 Fraction Fraction::sum(double b){
     Fraction fraction(b);
-
+    if (fraction.NU == 0 && fraction.D == 0){
+        fraction.NU = fraction.N;
+        fraction.N = 0;
+        fraction.D = 1;
+    }
+    if (this->NU == 0 && this->D == 0){
+        this->NU = this->N;
+        this->N = 0;
+        this->D = 1;
+    }
+    
     fraction.N += this->N;
     fraction.NU *= this->D;
     fraction.NU += fraction.D*this->NU;
     fraction.D *= this->D;
 
     if (fraction.NU >= fraction.D){
-        if (this->NU%this->D == 0){
-            fraction.N += this->NU/this->D;
-            this->NU = 0;
-            this->D = 0;
+        if (fraction.NU%fraction.D == 0){
+            fraction.N += fraction.NU/fraction.D;
+            fraction.NU = 0;
+            fraction.D = 0;
         }
         else if (fraction.NU%fraction.D != 0){
-            this->N += this->NU/this->D;
-            this->NU -= this->D;
+            fraction.N += fraction.NU/fraction.D;
+            fraction.NU -= fraction.D;
         }
     }
     fraction.abbreviation();
+    fraction.toMixedNum();
     fraction.print();
 }
 
 Fraction Fraction::multiply(Fraction b){
     Fraction fraction;
     fraction = b;
+    if (fraction.NU == 0 && fraction.D == 0){
+        fraction.NU = fraction.N;
+        fraction.N = 0;
+        fraction.D = 1;
+    }
+    if (this->NU == 0 && this->D == 0){
+        this->NU = this->N;
+        this->N = 0;
+        this->D = 1;
+    }
+    
     this->NU += this->N*this->D;
     fraction.NU += fraction.N*fraction.D;
     fraction.N = 0;
@@ -73,6 +95,17 @@ Fraction Fraction::multiply(Fraction b){
 
 Fraction Fraction::multiply(double b){
     Fraction fraction(b);
+    if (fraction.NU == 0 && fraction.D == 0){
+        fraction.NU = fraction.N;
+        fraction.N = 0;
+        fraction.D = 1;
+    }
+    if (this->NU == 0 && this->D == 0){
+        this->NU = this->N;
+        this->N = 0;
+        this->D = 1;
+    }
+
     this->NU += this->N*this->D;
     fraction.NU += fraction.N*fraction.D;
     fraction.N = 0;
@@ -83,16 +116,6 @@ Fraction Fraction::multiply(double b){
 
     fraction.abbreviation();
     fraction.toMixedNum();
-    fraction.print();
-}
-
-void Fraction::printAbbre(){
-    Fraction fraction;
-    fraction.set_N(N);
-    fraction.set_D(D);
-    fraction.set_NU(NU);
-
-    fraction.abbreviation();
     fraction.print();
 }
 
@@ -161,22 +184,33 @@ double Fraction::toDouble(){
 Fraction Fraction::str2Fraction(string frac1){
     size_t pos = 0;
     string delimiter = "/";
-    string token[3];
-
-    while ((pos = frac1.find(delimiter)) != string::npos){
-        for (int i = 0; i < 3; i++){
+    int token[3];
+    int i = 0;
+    
+    while ((pos = frac1.find('/')) != string::npos){
+        /*for (int i = 0; i < 3; i++){
             if (i == 2){
-                token[i] = frac1;
+                //token[i] = frac1;
+                token[i] = stoi(frac1);
             }
             else {
-                token[i] = frac1.substr(0, pos);
-            frac1.erase(0, pos + delimiter.length());
-            }            
-        }
+                //token[i] = frac1.substr(0, pos);
+                
+            }
+        }*/
+        token[i] = stoi(frac1);
+        frac1.erase(0, pos + delimiter.length());
+        i++;
     }
+    token[i] = stoi(frac1);
+    /*
     int fst = stoi(token[0]);
     int snd = stoi(token[1]);
     int thr = stoi(token[2]);
+*/
+    int fst = (token[0]);
+    int snd = (token[1]);
+    int thr = (token[2]);
 
     if (thr == 0){
         cout << "Invalid input!" << endl;
@@ -187,6 +221,8 @@ Fraction Fraction::str2Fraction(string frac1){
         set_NU(snd);
         set_D(thr);
     }
+    abbreviation();
+    toMixedNum();
 }
 
 long long gcd(long long a, long long b)
@@ -204,8 +240,10 @@ long long gcd(long long a, long long b)
 Fraction Fraction::double2Fraction(double frac2){
     Fraction fraction;
     if (frac2 < 48 || frac2 > 57){
-        cout << "Invalid input!" << endl;
-        exit(1);
+        if (frac2 == 46){
+            cout << "Invalid input!" << endl;
+            exit(1);
+        }
     }
     double fractionPart = frac2 - (long)frac2;
     int N = frac2 - fractionPart;
@@ -220,15 +258,14 @@ Fraction Fraction::double2Fraction(double frac2){
     // Calculate num and deno
     long long NU = (fractionPart * pVal) / gcdVal;
     long long D = pVal / gcdVal;
-    
-
-    set_N(N);
-    set_D(D);
-    set_NU(NU);
 
     fraction.set_N(N);
     fraction.set_NU(NU);
     fraction.set_D(D);
+
+    if (fraction.NU == 0){
+        fraction.D = 0;
+    }
 
     return fraction;
 }

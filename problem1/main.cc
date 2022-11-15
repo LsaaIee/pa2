@@ -17,13 +17,15 @@ int main(){
   }
   cin >> decimal;
   if (decimal < 48 || decimal > 57){
-    cout << "Invalid input!" << endl;
-    exit(1);
+    if (decimal == 46){
+      cout << "Invalid input!" << endl;
+      return 0;
+    }
   }
   Fraction fraction;
   
   fraction.str2Fraction(str);
-  fraction.printAbbre();
+  fraction.print();
   Fraction frac2(decimal);
   frac2.print();
   fraction.sum(fraction);

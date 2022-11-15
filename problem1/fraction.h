@@ -29,8 +29,6 @@ class Fraction{
     void set_D(int D);
     void set_NU(int NU);
     
-    void printAbbre();    
-
     Fraction();
     Fraction(double);
 };
