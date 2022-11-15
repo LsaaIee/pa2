@@ -99,10 +99,6 @@ void Fraction::printAbbre(){
 void Fraction::abbreviation(){
     int gcd;
 
-    if (D == 0){
-        cout << "Incorrect Input!" << endl;
-    }
-
     for (int i = 1; i <=  D; ++i) {
         if (NU % i == 0 && D % i ==0) {
             gcd = i;
@@ -184,6 +180,7 @@ Fraction Fraction::str2Fraction(string frac1){
 
     if (thr == 0){
         cout << "Invalid input!" << endl;
+        exit(1);
     }
     else {
         set_N(fst);
@@ -206,6 +203,10 @@ long long gcd(long long a, long long b)
 
 Fraction Fraction::double2Fraction(double frac2){
     Fraction fraction;
+    if (frac2 < 48 || frac2 > 57){
+        cout << "Invalid input!" << endl;
+        exit(1);
+    }
     double fractionPart = frac2 - (long)frac2;
     int N = frac2 - fractionPart;
 
@@ -228,9 +229,6 @@ Fraction Fraction::double2Fraction(double frac2){
     fraction.set_N(N);
     fraction.set_NU(NU);
     fraction.set_D(D);
-
-    // Print the fraction
-    //print();
 
     return fraction;
 }
