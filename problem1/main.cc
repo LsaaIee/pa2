@@ -5,17 +5,19 @@
 using namespace std;
 
 int main(){
-  string frac1;
-  double frac2;
+  string str;
+  getline(cin, str);
+  double decimal;
+  cin >> decimal;
   Fraction fraction;
-
-  getline(cin, frac1);
-  cin >> frac2;
   
-  fraction.str2Fraction(frac1);
+  
+  fraction.str2Fraction(str);
   fraction.printAbbre();
-  fraction.double2Fraction(frac2);
+  //fraction.double2Fraction(decimal);
+  Fraction frac2(decimal);
   fraction.toDouble();
+  frac2.toDouble();
 
   return 0;
 }

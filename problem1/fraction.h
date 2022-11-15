@@ -1,6 +1,7 @@
 #ifndef FRACTION_H
 #define FRACTION_H
 #include <string>
+#include <iostream>
 using namespace std;
 
 class Fraction{
@@ -27,9 +28,24 @@ class Fraction{
     void set_N(int N);
     void set_D(int D);
     void set_NU(int NU);
+    
+    void printAbbre();    
 
-    void printAbbre();
+    Fraction();
+    Fraction(double);
 };
 
-
+/*
+class frac2 : public Fraction {
+  public: 
+    frac2(){
+      decimal = 0.0;
+    }
+    frac2 double2Fraction(double);
+    frac2(double decimal) : decimal(decimal) {}
+  
+  private:
+    double decimal = 0.0;
+};
+*/
 #endif

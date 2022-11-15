@@ -41,7 +41,6 @@ void Fraction::printAbbre(){
 
 void Fraction::abbreviation(){
     int gcd;
-    Fraction fraction;
 
     if (D == 0){
         cout << "Incorrect Input!" << endl;
@@ -56,9 +55,9 @@ void Fraction::abbreviation(){
     NU = NU/gcd;
     D = D/gcd;
 
-    fraction.set_N(N);
-    fraction.set_D(D);
-    fraction.set_NU(NU);
+    set_N(N);
+    set_D(D);
+    set_NU(NU);
 }
 
 bool Fraction::toMixedNum(){
@@ -86,27 +85,18 @@ void Fraction::print(){
 }
 
 double Fraction::toDouble(){
-    Fraction fraction;
     double value;
-    double i = (double)N;
-    double j = (double)NU;
-    double k = (double)D;
 
-    if (i < 0){
-        value = j/k;
+    if (this->N < 0){
+        value = this->NU/this->D;
     }
     else {
-        j += i*k;
-        value = j/k;
+        NU += N*D;
+        value = (double)NU/(double)D;
     }
 
-    fraction.set_N(N);
-    fraction.set_D(D);
-    fraction.set_NU(NU);
-
-    fraction.abbreviation();
-    fraction.toMixedNum();
-
+    abbreviation();
+    toMixedNum();
     cout.setf(ios::fixed, ios::floatfield);
     cout.precision(7);
     cout << value << endl;
@@ -129,9 +119,10 @@ Fraction Fraction::str2Fraction(string frac1){
     int fst = stoi(token[0]);
     int snd = stoi(token[1]);
     int thr = stoi(token[2]);
-    Fraction::set_N(fst);
-    Fraction::set_NU(snd);
-    Fraction::set_D(thr);
+
+    set_N(fst);
+    set_NU(snd);
+    set_D(thr);
 }
 
 long long gcd(long long a, long long b)
@@ -168,6 +159,8 @@ Fraction Fraction::double2Fraction(double frac2){
 
     // Print the fraction
     fraction.print();
+
+    return fraction;
 }
 
 int Fraction::get_N() const {
@@ -187,4 +180,19 @@ int Fraction::get_NU() const {
 }
 void Fraction::set_NU(int NU){
     this->NU = NU;
+}
+
+Fraction::Fraction(){
+    N = 0;
+    NU = 0;
+    D = 0;
+}
+Fraction::Fraction(double decimal){
+    Fraction fraction;
+    fraction = double2Fraction(decimal);
+    this->N = fraction.N;
+    this->NU = fraction.NU;
+    this->D = fraction.D;
+    cout.setf(ios::fixed, ios::floatfield);
+    cout.precision(7);
 }
