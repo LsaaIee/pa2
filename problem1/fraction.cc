@@ -34,7 +34,7 @@ void Fraction::printAbbre(){
     fraction.set_N(N);
     fraction.set_D(D);
     fraction.set_NU(NU);
-    
+
     fraction.abbreviation();
     fraction.print();
 }
@@ -106,6 +106,9 @@ double Fraction::toDouble(){
 
     fraction.abbreviation();
     fraction.toMixedNum();
+
+    cout.setf(ios::fixed, ios::floatfield);
+    cout.precision(7);
     cout << value << endl;
 
     return value;
