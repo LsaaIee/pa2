@@ -33,17 +33,4 @@ class Fraction{
     Fraction(double);
 };
 
-/*
-class frac2 : public Fraction {
-  public: 
-    frac2(){
-      decimal = 0.0;
-    }
-    frac2 double2Fraction(double);
-    frac2(double decimal) : decimal(decimal) {}
-  
-  private:
-    double decimal = 0.0;
-};
-*/
 #endif
