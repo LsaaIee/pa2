@@ -9,9 +9,11 @@ int main(){
   Calculator calculator;
   string operation;
 
-  cout << "Enter your equation to calculate: ";
+  while(true){
+    cout << "Enter your equation to calculate: ";
   getline(cin, operation);
   calculator.setValue(operation);
-  //calculator.print();
+  }
+  
   return 0;
 }

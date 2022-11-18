@@ -34,12 +34,15 @@ float Calculator::div(){
     }
     return result;
 }
-/*
+
 float Calculator::mod(){
-    cout << "Answer: " << N%M << endl;
-    return N % M;
+    int a = (int)N;
+    int b = (int)M;
+    int result = a%b;
+    cout << "Answer: " << result << endl;
+    return result;
 }
-*/
+
 float Calculator::exp(){
     int result = N*(N*M);
     cout << "Answer: " << result << endl;
@@ -49,7 +52,6 @@ float Calculator::exp(){
 void Calculator::setValue(string operation){
     string oper;
     string temp;
-    //operation.erase(remove(operation.begin(), operation.end(), ' '), operation.end());
     int len = operation.length();
     char c[len];
 
@@ -116,7 +118,7 @@ void Calculator::setValue(string operation){
             oper = '%';
             temp.erase(0, 1);
             M = stoi(temp);
-            //mod();
+            mod();
             break;
         case '^':
             oper = '^';
