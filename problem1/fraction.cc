@@ -191,22 +191,22 @@ Fraction Fraction::str2Fraction(string frac1){
         /*for (int i = 0; i < 3; i++){
             if (i == 2){
                 //token[i] = frac1;
-                token[i] = stoi(frac1);
+                token[i] = stof(frac1);
             }
             else {
                 //token[i] = frac1.substr(0, pos);
                 
             }
         }*/
-        token[i] = stoi(frac1);
+        token[i] = stof(frac1);
         frac1.erase(0, pos + delimiter.length());
         i++;
     }
-    token[i] = stoi(frac1);
+    token[i] = stof(frac1);
     /*
-    int fst = stoi(token[0]);
-    int snd = stoi(token[1]);
-    int thr = stoi(token[2]);
+    int fst = stof(token[0]);
+    int snd = stof(token[1]);
+    int thr = stof(token[2]);
 */
     int fst = (token[0]);
     int snd = (token[1]);
