@@ -12,6 +12,9 @@ class Calculator{
     float x;
     float y;
     float z;
+    float forX;
+    float forY;
+    float forZ;
 
   public:
     float add();
@@ -26,8 +29,7 @@ class Calculator{
     float divLetter();
     float modLetter();
     float expLetter();
-    float NCheck(float N);
-    float MCheck(float M);
+    float numCheck(float N);
 
     void setValue(string oper);
     void toDouble(string oper);

@@ -14,7 +14,16 @@ float Calculator::add(){
     return result;
 }
 float Calculator::addLetter(){
-    float result = x + x;
+    float result = 0;
+    if (y == 0 && z == 0){
+        result = forX + forX;
+    }
+    else if (x == 0 && z == 0){
+        result = forY + forY;
+    }
+    else if (x == 0 && y == 0){
+        result = forZ + forZ;
+    }
     cout << "Answer: " << result << endl;
     return result;
 }
@@ -25,7 +34,16 @@ float Calculator::sub(){
     return result;
 }
 float Calculator::subLetter(){
-    float result = x - x;
+    float result = 0;
+    if (y == 0 && z == 0){
+        result = x - x;
+    }
+    else if (x == 0 && z == 0){
+        result = y - y;
+    }
+    else if (x == 0 && y == 0){
+        result = z - z;
+    }
     cout << "Answer: " << result << endl;
     return result;
 }
@@ -36,7 +54,16 @@ float Calculator::mul(){
     return result;
 }
 float Calculator::mulLetter(){
-    float result = x * x;
+    float result = 0;
+    if (y == 0 && z == 0){
+        result = x * x;
+    }
+    else if (x == 0 && z == 0){
+        result = y * y;
+    }
+    else if (x == 0 && y == 0){
+        result = z * z;
+    }
     cout << "Answer: " << result << endl;
     return result;
 }
@@ -88,37 +115,29 @@ float Calculator::exp(){
 }
 float Calculator::expLetter(){
     float result = 1;
-    while (M != 0){
-        result *= N;
-        --M;
+    while (x != 0){
+        result *= x;
+        --x;
     }
     cout << "Answer: " << result << endl;
     return result;
 }
 
-float Calculator::NCheck(float N){
+float Calculator::numCheck(float N){
     if (N < 0 || N > 255){
         cout << "Invalid input!" << endl;
         exit(1);
     }
-    return 0;
-}
-float Calculator::MCheck(float M){
-    if (M < 0 || M > 255){
-        cout << "Invalid input!" << endl;
-        exit(1);
-    }
-    return 0;
+    return false;
 }
 
 void Calculator::setValue(string operation){
     string oper;
     string temp;
     int len = operation.length();
-    char c[len];
-
+    string c;
+    c = operation;
     for (int i = 0; i < len; i++){
-        c[i] = operation[i];
         if (!(c[i] >= 48 && c[i] <= 57) && c[i] != '+' && c[i] != '-' && c[i] != '*' && c[i] != '/' && c[i] != '%' && c[i] != '^' && c[i] != ' ' && c[i] != '=' && c[i] != 'x' && c[i] != 'y' && c[i] != 'z' && c[i] != '.'){
             cout << "Invalid input!" << endl;
             exit(1);
@@ -157,8 +176,8 @@ void Calculator::setValue(string operation){
             if (operation[0] == 'x' && operation[1] == ' '){
                 if (operation[2] == '='){
                     temp.erase(0, 3);
-                    N = stoi(temp);
-                    x = N;
+                    forX = stoi(temp);
+                    x = forX;
                 }
             }
             break;
@@ -169,8 +188,8 @@ void Calculator::setValue(string operation){
             if (operation[0] == 'y' && operation[1] == ' '){
                 if (operation[2] == '='){
                     temp.erase(0, 3);
-                    N = stoi(temp);
-                    y = N;
+                    forY = stoi(temp);
+                    y = forY;
                 }
             }
             break;
@@ -181,8 +200,8 @@ void Calculator::setValue(string operation){
             if (operation[0] == 'z' && operation[1] == ' '){
                 if (operation[2] == '='){
                     temp.erase(0, 3);
-                    N = stoi(temp);
-                    z = N;
+                    forZ = stoi(temp);
+                    z = forZ;
                 }
             }
             break;
@@ -192,83 +211,170 @@ void Calculator::setValue(string operation){
     if (!(operation[0] == 'x' || operation[0] == 'y' || operation[0] == 'z')){
         N = stoi(operation);
     }
-    NCheck(N);
+    numCheck(N);
+
     len2 = temp.length();
     for (int j = len2; j < len; j++){
         switch (temp[0]){
         case '+':
             temp.erase(0, 2);
-            if (c[j] >= 48 && c[j] <= 57){
+            if (temp[0] >= 48 && temp[0] <= 57){
                 M = stoi(temp);
-                MCheck(M);
+                numCheck(M);
                 add();
             }
-            else if (temp[0] == 'x') {
-                addLetter();
+            else {
+                if (temp[0] == 'x'){
+                    y = 0;
+                    z = 0;
+                    addLetter();
+                }
+                else if (temp[0] == 'y'){
+                    x = 0;
+                    z = 0;
+                    addLetter();
+                }
+                else if (temp[0] == 'z'){
+                    x = 0;
+                    y = 0;
+                    addLetter();
+                }
             }
             break;
         case '-':
             temp.erase(0, 2);
-            if (c[j] >= 48 && c[j] <= 57){
+            if (temp[0] >= 48 && temp[0] <= 57){
                 M = stoi(temp);
-                MCheck(M);
+                numCheck(M);
                 sub();
             }
-            else if (temp[0] == 'x') {
-                subLetter();
+            else {
+                if (temp[0] == 'x'){
+                    y = 0;
+                    z = 0;
+                    subLetter();
+                }
+                else if (temp[0] == 'y'){
+                    x = 0;
+                    z = 0;
+                    subLetter();
+                }
+                else if (temp[0] == 'z'){
+                    x = 0;
+                    y = 0;
+                    subLetter();
+                }
             }
             break;
         case '*':
             temp.erase(0, 2);
-            if (c[j] >= 48 && c[j] <= 57){
+            if (temp[0] >= 48 && temp[0] <= 57){
                 M = stoi(temp);
-                MCheck(M);
+                numCheck(M);
                 mul();
             }
-            else if (temp[0] == 'x') {
-                mulLetter();
+            else {
+                if (temp[0] == 'x'){
+                    y = 0;
+                    z = 0;
+                    mulLetter();
+                }
+                else if (temp[0] == 'y'){
+                    x = 0;
+                    z = 0;
+                    mulLetter();
+                }
+                else if (temp[0] == 'z'){
+                    x = 0;
+                    y = 0;
+                    mulLetter();
+                }
             }
             break;
         case '/':
             temp.erase(0, 2);
-            if (c[j] >= 48 && c[j] <= 57){
+            if (temp[0] >= 48 && temp[0] <= 57){
                 M = stoi(temp);
-                MCheck(M);
+                numCheck(M);
                 if (M == 0){
                     cout << "Answer: Operation disallowed" << endl;
                     exit(1);
                 }
                 div();
             }
-            else if (temp[0] == 'x'){
-                if (x == 0){
+            else {
+                if (x == 0 || y == 0 || z == 0){
                     cout << "Answer: Operation disallowed" << endl;
                     exit(1);
                 }
                 else {
-                    divLetter();
+                    if (temp[0] == 'x'){
+                        y = 0;
+                        z = 0;
+                        divLetter();
+                    }
+                    else if (temp[0] == 'y'){
+                        x = 0;
+                        z = 0;
+                        divLetter();
+                    }
+                    else if (temp[0] == 'z'){
+                        x = 0;
+                        y = 0;
+                        divLetter();
+                    }
                 }
             }
             break;
         case '%':
             temp.erase(0, 2);
-            if (c[j] >= 48 && c[j] <= 57){
+            if (temp[0] >= 48 && temp[0] <= 57){
                 M = stoi(temp);
-                MCheck(M);
+                numCheck(M);
                 mod();
             }
-            else if (temp[0] == 'x') {
-                modLetter();
+            else {
+                if (temp[0] == 'x'){
+                    y = 0;
+                    z = 0;
+                    modLetter();
+                }
+                else if (temp[0] == 'y'){
+                    x = 0;
+                    z = 0;
+                    modLetter();
+                }
+                else if (temp[0] == 'z'){
+                    x = 0;
+                    y = 0;
+                    modLetter();
+                }
             }
             break;
         case '^':
-            temp.erase(0, 1);
-            M = stoi(temp);
-            MCheck(M);
-            if (M > 10){
-                exit(1);
+            temp.erase(0, 2);
+            if (temp[0] >= 48 && temp[0] <= 57){
+                M = stoi(temp);
+                numCheck(M);
+                exp();
             }
-            exp();
+            else {
+                if (temp[0] == 'x'){
+                    y = 0;
+                    z = 0;
+                    expLetter();
+                }
+                else if (temp[0] == 'y'){
+                    x = 0;
+                    z = 0;
+                    expLetter();
+                }
+                else if (temp[0] == 'z'){
+                    x = 0;
+                    y = 0;
+                    expLetter();
+                }
+            }
             break;
         }
     }
