@@ -213,7 +213,7 @@ Fraction Fraction::str2Fraction(string frac1){
     int thr = (token[2]);
 
     if (thr == 0){
-        cout << "Invalid input!" << endl;
+        cout << "Answer: Invalid input" << endl;
         exit(1);
     }
     else {
@@ -241,7 +241,7 @@ Fraction Fraction::double2Fraction(double frac2){
     Fraction fraction;
     if (frac2 < 48 || frac2 > 57){
         if (frac2 == 46){
-            cout << "Invalid input!" << endl;
+            cout << "Answer: Invalid input" << endl;
             exit(1);
         }
     }

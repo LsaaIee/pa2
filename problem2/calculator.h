@@ -3,7 +3,7 @@ using namespace std;
 #ifndef CALCULATOR_H
 #define CALCULATOR_H
 
-class Calculator{
+class calculator{
   //Write class definition here
   private: 
     float N;
@@ -31,7 +31,7 @@ class Calculator{
     float divLetter(float, float);
     float modLetter(float, float);
     float expLetter(float, float);
-    float numCheck(float N);
+    void numCheck(float N);
 
     void setValue(string oper);
     void print();

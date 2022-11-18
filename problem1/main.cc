@@ -11,14 +11,14 @@ int main(){
   int len = str.length();
   for (int i = 0; i < len; i++){
     if (str[i] < 47 || str[i] > 57){
-      cout << "Invalid input!" << endl;
+      cout << "Answer: Invalid input" << endl;
       return 0;
     }
   }
   cin >> decimal;
   if (decimal < 48 || decimal > 57){
     if (decimal == 46){
-      cout << "Invalid input!" << endl;
+      cout << "Answer: Invalid input" << endl;
       return 0;
     }
   }

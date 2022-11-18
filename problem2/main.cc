@@ -6,7 +6,7 @@ using namespace std;
 
 int main(){
   //write your code here
-  Calculator calculator;
+  calculator calculator;
   string operation;
 
   while(true){

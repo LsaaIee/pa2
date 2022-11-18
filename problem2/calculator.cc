@@ -9,43 +9,43 @@
 using namespace std;
 
 //Implement Member Functions
-float Calculator::add(){
+float calculator::add(){
     result = N + M;
     print();
     return result;
 }
-float Calculator::addLetter(float local1, float local2){
+float calculator::addLetter(float local1, float local2){
     result = 0;
     result = local1 + local2;
     print();
     return result;
 }
 
-float Calculator::sub(){
+float calculator::sub(){
     result = N - M;
     print();
     return result;
 }
-float Calculator::subLetter(float local1, float local2){
+float calculator::subLetter(float local1, float local2){
     result = 0;
     result = local1 - local2;
     print();
     return result;
 }
 
-float Calculator::mul(){
+float calculator::mul(){
     result = N * M;
     print();
     return result;
 }
-float Calculator::mulLetter(float local1, float local2){
+float calculator::mulLetter(float local1, float local2){
     result = 0;
     result = local1 * local2;
     print();
     return result;
 }
 
-float Calculator::div(){
+float calculator::div(){
     result = N / M;
     if (M == 0){
         cout << "Answer: Operation disallowed" << endl;
@@ -56,7 +56,7 @@ float Calculator::div(){
     }
     return result;
 }
-float Calculator::divLetter(float local1, float local2){
+float calculator::divLetter(float local1, float local2){
     result = 1;
     if (x == 0){
         cout << "Answer: Operation disallowed" << endl;
@@ -69,14 +69,14 @@ float Calculator::divLetter(float local1, float local2){
     return result;
 }
 
-float Calculator::mod(){
+float calculator::mod(){
     int a = (int)N;
     int b = (int)M;
-    int result = a%b;
+    result = a%b;
     print();
     return result;
 }
-float Calculator::modLetter(float local1, float local2){
+float calculator::modLetter(float local1, float local2){
     result = 0;
     int a = (int)local1;
     int b = (int)local2;
@@ -85,26 +85,25 @@ float Calculator::modLetter(float local1, float local2){
     return result;
 }
 
-float Calculator::exp(){
+float calculator::exp(){
     result = pow(N, M);
     print();
     return result;
 }
-float Calculator::expLetter(float local1, float local2){
+float calculator::expLetter(float local1, float local2){
     result = pow(local1, local2);
     print();
     return result;
 }
 
-float Calculator::numCheck(float N){
+void calculator::numCheck(float N){
     if (N < 0 || N > 255){
-        cout << "Invalid input!" << endl;
+        cout << "Answer: Invalid input" << endl;
         exit(1);
     }
-    return false;
 }
 
-void Calculator::setValue(string operation) {
+void calculator::setValue(string operation) {
     this->operation = operation;
     float local1 = 0;
     float local2 = 0;
@@ -114,7 +113,7 @@ void Calculator::setValue(string operation) {
     c = operation;
     for (int i = 0; i < len; i++){
         if (!(c[i] >= 48 && c[i] <= 57) && c[i] != '+' && c[i] != '-' && c[i] != '*' && c[i] != '/' && c[i] != '%' && c[i] != '^' && c[i] != ' ' && c[i] != '=' && c[i] != 'x' && c[i] != 'y' && c[i] != 'z' && c[i] != '.'){
-            cout << "Invalid input!" << endl;
+            cout << "Answer: Invalid input" << endl;
             exit(1);
         }
     }
@@ -255,15 +254,13 @@ void Calculator::setValue(string operation) {
             }
             else if (operation[0] == 'z' && (temp[0] >= 48 && temp[0] <= 57)){
                 M = stof(temp);
-                numCheck(M);
+                //numCheck(M);
                 cout << "Answer: " << forZ - M << endl;
                 break;
             }
             
             if (temp[0] >= 48 && temp[0] <= 57) {
                 M = stof(temp);
-                N = x;
-                numCheck(N);
                 numCheck(M);
                 sub();
             }
@@ -277,7 +274,7 @@ void Calculator::setValue(string operation) {
                 else if (temp[0] == 'z'){
                     local2 = z;
                 }
-                mulLetter(local1, local2);
+                subLetter(local1, local2);
             }
             break;
         case '*':
@@ -325,7 +322,7 @@ void Calculator::setValue(string operation) {
                 M = stof(temp);
                 numCheck(M);
                 if (M == 0){
-                    cout << "Invalid input!" << endl;
+                    cout << "Answer: Invalid input" << endl;
                     exit(1);
                 }
                 else {
@@ -337,7 +334,7 @@ void Calculator::setValue(string operation) {
                 M = stof(temp);
                 numCheck(M);
                 if (M == 0){
-                    cout << "Invalid input!" << endl;
+                    cout << "Answer: Invalid input" << endl;
                     exit(1);
                 }
                 else {
@@ -350,7 +347,7 @@ void Calculator::setValue(string operation) {
                 M = stof(temp);
                 numCheck(M);
                 if (M == 0){
-                    cout << "Invalid input!" << endl;
+                    cout << "Answer: Invalid input" << endl;
                     exit(1);
                 }
                 else {
@@ -469,6 +466,6 @@ void Calculator::setValue(string operation) {
     }
 }
 
-void Calculator::print() {
+void calculator::print() {
     cout << "Answer: " << result << endl;  
 }
