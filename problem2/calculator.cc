@@ -3,110 +3,132 @@
 #include <string>
 #include <cmath>
 #include <ctype.h>
+#include <algorithm>
 
 using namespace std;
 
 //Implement Member Functions
-/*
 float Calculator::add(){
-    return a + b;
+    int result = N + M;
+    cout << "Answer: " << result << endl;
+    return result;
 }
 float Calculator::sub(){
-    return a - b;
+    int result = N - M;
+    cout << "Answer: " << result << endl;
+    return result;
 }
 float Calculator::mul(){
-    return a * b;
+    int result = N * M;
+    cout << "Answer: " << result << endl;
+    return result;
 }
 float Calculator::div(){
-    if (b == 0){
-        cout << "Invalid input!" << endl;
-        return INFINITY;
+    int result = N / M;
+    if (M == 0){
+        cout << "Answer: Operation disallowed" << endl;
+        exit(1);
     }
     else {
-        return a / b;
+        cout << "Answer: " << result << endl;
     }
+    return result;
 }
-
+/*
 float Calculator::mod(){
-    cout << a%b << endl;
-    return a % b;
-}
-
-float Calculator::exp(){
-    for (int i = 0; i <= b; i++){
-        a = a*b;
-    }
-    return a;
+    cout << "Answer: " << N%M << endl;
+    return N % M;
 }
 */
-float Calculator::get_N() const {
-    return N;
-}
-float Calculator::get_M() const {
-    return M;
-}
-string Calculator::get_oper() const {
-    return oper;
-}
-void Calculator::set_N(float N){
-    this->N = N;
-}
-void Calculator::set_M(float M){
-    this->M = M;
-}
-void Calculator::set_oper(string oper){
-    this->oper = oper;
+float Calculator::exp(){
+    int result = N*(N*M);
+    cout << "Answer: " << result << endl;
+    return result;
 }
 
-void Calculator::slicer(string operation){
-    int num1;
+void Calculator::setValue(string operation){
     string oper;
-    int num2;
+    string temp;
+    //operation.erase(remove(operation.begin(), operation.end(), ' '), operation.end());
     int len = operation.length();
     char c[len];
-    
+
     for (int i = 0; i < len; i++){
         c[i] = operation[i];
         if (!(c[i] >= 48 && c[i] <= 57) && c[i] != '+' && c[i] != '-' && c[i] != '*' && c[i] != '/' && c[i] != '%' && c[i] != '^' && c[i] != ' '){
             cout << "Invalid input!" << endl;
             exit(1);
         }
-        else {
-            num1 = stoi(operation);
-        }
-        switch (c[i]){
+    }
+    temp = operation;
+    for (int i = 0; i < len; i++){
+        switch (temp[i]){
         case '+':
-            oper = '+';
-            num2 = stoi(operation);
+            temp.erase(0, i);
             break;
         case '-':
-            oper = '-';
-            num2 = stoi(operation);
+            temp.erase(0, i);
             break;
         case '*':
-            oper = '*';
-            num2 = stoi(operation);
+            temp.erase(0, i);
             break;
         case '/':
-            oper = '/';
-            num2 = stoi(operation);
+            temp.erase(0, i);
             break;
         case '%':
-            oper = '%';
-            num2 = stoi(operation);
+            temp.erase(0, i);
             break;
         case '^':
-            oper = '^';
-            num2 = stoi(operation);
+            temp.erase(0, i);
             break;
         }
     }
+    int len2 = temp.length();
+    N = stoi(operation);
+    operation.erase(0, len2);
+    for (int j = len2; j < len; j++){
+        switch (temp[0]){
+        case '+':
+            oper = '+';
+            temp.erase(0, 1);
+            M = stoi(temp);
+            add();
+            break;
+        case '-':
+            oper = '-';
+            temp.erase(0, 1);
+            M = stoi(temp);
+            sub();
+            break;
+        case '*':
+            oper = '*';
+            temp.erase(0, 1);
+            M = stoi(temp);
+            mul();
+            break;
+        case '/':
+            oper = '/';
+            temp.erase(0, 1);
+            M = stoi(temp);
+            div();
+            break;
+        case '%':
+            oper = '%';
+            temp.erase(0, 1);
+            M = stoi(temp);
+            //mod();
+            break;
+        case '^':
+            oper = '^';
+            temp.erase(0, 1);
+            M = stoi(temp);
+            exp();
+            break;
+        case 'q':
+            exit(1);
+        }
+    }
 }
-
-//letter error 처리. stoi하면 첫번째 숫자 나오고 중간 operator 찾고 저장하고 나서 그 다음거를 substr로 뽑아오고. 그걸 stoi하면 2번쨰 숫자 나옴.
-
-Calculator::Calculator(){
-    M = 0.0;
-    N = 0.0;
-    oper = "";
+void Calculator::print(){
+    cout << N << oper << M << endl;
 }
