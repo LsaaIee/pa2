@@ -4,89 +4,67 @@
 #include <cmath>
 #include <ctype.h>
 #include <algorithm>
+#include <iomanip>
 
 using namespace std;
 
 //Implement Member Functions
 float Calculator::add(){
-    float result = N + M;
-    cout << "Answer: " << result << endl;
+    result = N + M;
+    print();
     return result;
 }
-float Calculator::addLetter(){
-    float result = 0;
-    if (y == 0 && z == 0){
-        result = forX + forX;
-    }
-    else if (x == 0 && z == 0){
-        result = forY + forY;
-    }
-    else if (x == 0 && y == 0){
-        result = forZ + forZ;
-    }
-    cout << "Answer: " << result << endl;
+float Calculator::addLetter(float local1, float local2){
+    result = 0;
+    result = local1 + local2;
+    print();
     return result;
 }
 
 float Calculator::sub(){
-    float result = N - M;
-    cout << "Answer: " << result << endl;
+    result = N - M;
+    print();
     return result;
 }
-float Calculator::subLetter(){
-    float result = 0;
-    if (y == 0 && z == 0){
-        result = x - x;
-    }
-    else if (x == 0 && z == 0){
-        result = y - y;
-    }
-    else if (x == 0 && y == 0){
-        result = z - z;
-    }
-    cout << "Answer: " << result << endl;
+float Calculator::subLetter(float local1, float local2){
+    result = 0;
+    result = local1 - local2;
+    print();
     return result;
 }
 
 float Calculator::mul(){
-    float result = N * M;
-    cout << "Answer: " << result << endl;
+    result = N * M;
+    print();
     return result;
 }
-float Calculator::mulLetter(){
-    float result = 0;
-    if (y == 0 && z == 0){
-        result = x * x;
-    }
-    else if (x == 0 && z == 0){
-        result = y * y;
-    }
-    else if (x == 0 && y == 0){
-        result = z * z;
-    }
-    cout << "Answer: " << result << endl;
+float Calculator::mulLetter(float local1, float local2){
+    result = 0;
+    result = local1 * local2;
+    print();
     return result;
 }
 
 float Calculator::div(){
-    float result = N / M;
+    result = N / M;
     if (M == 0){
         cout << "Answer: Operation disallowed" << endl;
         exit(1);
     }
     else {
-        cout << "Answer: " << result << endl;
+        print();
     }
     return result;
 }
-float Calculator::divLetter(){
-    float result = 1;
+float Calculator::divLetter(float local1, float local2){
+    result = 1;
     if (x == 0){
         cout << "Answer: Operation disallowed" << endl;
         exit(1);
     }
     else {
-        cout << "Answer: " << result << endl;
+        result = local1 / local2;
+        print();
     }
     return result;
 }
@@ -95,31 +73,26 @@ float Calculator::mod(){
     int a = (int)N;
     int b = (int)M;
     int result = a%b;
-    cout << "Answer: " << result << endl;
+    print();
     return result;
 }
-float Calculator::modLetter(){
-    float result = 0;
-    cout << "Answer: " << result << endl;
+float Calculator::modLetter(float local1, float local2){
+    result = 0;
+    int a = (int)local1;
+    int b = (int)local2;
+    result = a % b;
+    print();
     return result;
 }
 
 float Calculator::exp(){
-    float result = 1;
-    while (M != 0){
-        result *= N;
-        --M;
-    }
-    cout << "Answer: " << result << endl;
+    result = pow(N, M);
+    print();
     return result;
 }
-float Calculator::expLetter(){
-    float result = 1;
-    while (x != 0){
-        result *= x;
-        --x;
-    }
-    cout << "Answer: " << result << endl;
+float Calculator::expLetter(float local1, float local2){
+    result = pow(local1, local2);
+    print();
     return result;
 }
 
@@ -131,10 +104,12 @@ float Calculator::numCheck(float N){
     return false;
 }
 
-void Calculator::setValue(string operation){
-    string oper;
+void Calculator::setValue(string operation) {
+    this->operation = operation;
+    float local1 = 0;
+    float local2 = 0;
     string temp;
-    int len = operation.length();
+    len = operation.length();
     string c;
     c = operation;
     for (int i = 0; i < len; i++){
@@ -176,8 +151,11 @@ void Calculator::setValue(string operation){
             if (operation[0] == 'x' && operation[1] == ' '){
                 if (operation[2] == '='){
                     temp.erase(0, 3);
-                    forX = stoi(temp);
+                    forX = stof(temp);
                     x = forX;
+                }
+                else {
+                    local1 = x;
                 }
             }
             break;
@@ -188,8 +166,11 @@ void Calculator::setValue(string operation){
             if (operation[0] == 'y' && operation[1] == ' '){
                 if (operation[2] == '='){
                     temp.erase(0, 3);
-                    forY = stoi(temp);
+                    forY = stof(temp);
                     y = forY;
+                }
+                else {
+                    local1 = y;
                 }
             }
             break;
@@ -200,8 +181,11 @@ void Calculator::setValue(string operation){
             if (operation[0] == 'z' && operation[1] == ' '){
                 if (operation[2] == '='){
                     temp.erase(0, 3);
-                    forZ = stoi(temp);
+                    forZ = stof(temp);
                     z = forZ;
+                }
+                else {
+                    local1 = z;
                 }
             }
             break;
@@ -209,7 +193,7 @@ void Calculator::setValue(string operation){
     }
     
     if (!(operation[0] == 'x' || operation[0] == 'y' || operation[0] == 'z')){
-        N = stoi(operation);
+        N = stof(operation);
     }
     numCheck(N);
 
@@ -218,83 +202,165 @@ void Calculator::setValue(string operation){
         switch (temp[0]){
         case '+':
             temp.erase(0, 2);
+            if (operation[0] == 'x' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << forX + M << endl;
+                break;
+            }
+            else if (operation[0] == 'y' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << forY + M << endl;
+                break;
+            }
+            else if (operation[0] == 'z' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << forZ + M << endl;
+                break;
+            }
+            
             if (temp[0] >= 48 && temp[0] <= 57){
-                M = stoi(temp);
+                M = stof(temp);
                 numCheck(M);
                 add();
             }
             else {
                 if (temp[0] == 'x'){
-                    y = 0;
-                    z = 0;
-                    addLetter();
+                    local2 = x;
                 }
                 else if (temp[0] == 'y'){
-                    x = 0;
-                    z = 0;
-                    addLetter();
+                    local2 = y;
                 }
                 else if (temp[0] == 'z'){
-                    x = 0;
-                    y = 0;
-                    addLetter();
+                    local2 = z;
                 }
+                addLetter(local1, local2);
             }
             break;
         case '-':
             temp.erase(0, 2);
-            if (temp[0] >= 48 && temp[0] <= 57){
-                M = stoi(temp);
+            if (operation[0] == 'x' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << forX - M << endl;
+                break;
+            }
+            else if (operation[0] == 'y' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << forY - M << endl;
+                break;
+            }
+            else if (operation[0] == 'z' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << forZ - M << endl;
+                break;
+            }
+            
+            if (temp[0] >= 48 && temp[0] <= 57) {
+                M = stof(temp);
+                N = x;
+                numCheck(N);
                 numCheck(M);
                 sub();
             }
             else {
                 if (temp[0] == 'x'){
-                    y = 0;
-                    z = 0;
-                    subLetter();
+                    local2 = x;
                 }
                 else if (temp[0] == 'y'){
-                    x = 0;
-                    z = 0;
-                    subLetter();
+                    local2 = y;
                 }
                 else if (temp[0] == 'z'){
-                    x = 0;
-                    y = 0;
-                    subLetter();
+                    local2 = z;
                 }
+                mulLetter(local1, local2);
             }
             break;
         case '*':
             temp.erase(0, 2);
+            if (operation[0] == 'x' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << forX * M << endl;
+                break;
+            }
+            else if (operation[0] == 'y' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << forY * M << endl;
+                break;
+            }
+            else if (operation[0] == 'z' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << forZ * M << endl;
+                break;
+            }
+
             if (temp[0] >= 48 && temp[0] <= 57){
-                M = stoi(temp);
+                M = stof(temp);
                 numCheck(M);
                 mul();
             }
             else {
                 if (temp[0] == 'x'){
-                    y = 0;
-                    z = 0;
-                    mulLetter();
+                    local2 = x;
                 }
                 else if (temp[0] == 'y'){
-                    x = 0;
-                    z = 0;
-                    mulLetter();
+                    local2 = y;
                 }
                 else if (temp[0] == 'z'){
-                    x = 0;
-                    y = 0;
-                    mulLetter();
+                    local2 = z;
                 }
+                mulLetter(local1, local2);
             }
             break;
         case '/':
             temp.erase(0, 2);
+            if (operation[0] == 'x' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                if (M == 0){
+                    cout << "Invalid input!" << endl;
+                    exit(1);
+                }
+                else {
+                    cout << "Answer: " << forX / M << endl;
+                }
+                break;
+            }
+            else if (operation[0] == 'y' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                if (M == 0){
+                    cout << "Invalid input!" << endl;
+                    exit(1);
+                }
+                else {
+                    cout << "Answer: " << forY / M << endl;
+                }
+                
+                break;
+            }
+            else if (operation[0] == 'z' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                if (M == 0){
+                    cout << "Invalid input!" << endl;
+                    exit(1);
+                }
+                else {
+                    cout << "Answer: " << forZ / M << endl;
+                }
+                break;
+            }
+
             if (temp[0] >= 48 && temp[0] <= 57){
-                M = stoi(temp);
+                M = stof(temp);
                 numCheck(M);
                 if (M == 0){
                     cout << "Answer: Operation disallowed" << endl;
@@ -309,83 +375,100 @@ void Calculator::setValue(string operation){
                 }
                 else {
                     if (temp[0] == 'x'){
-                        y = 0;
-                        z = 0;
-                        divLetter();
+                        local2 = x;
                     }
                     else if (temp[0] == 'y'){
-                        x = 0;
-                        z = 0;
-                        divLetter();
+                        local2 = y;
                     }
                     else if (temp[0] == 'z'){
-                        x = 0;
-                        y = 0;
-                        divLetter();
+                        local2 = z;
                     }
+                    divLetter(local1, local2);
                 }
             }
             break;
         case '%':
             temp.erase(0, 2);
+            if (operation[0] == 'x' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << int(forX) % int(M) << endl;
+                break;
+            }
+            else if (operation[0] == 'y' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << int(forY) % int(M) << endl;
+                break;
+            }
+            else if (operation[0] == 'z' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << int(forZ) % int(M) << endl;
+                break;
+            }
+
             if (temp[0] >= 48 && temp[0] <= 57){
-                M = stoi(temp);
+                M = stof(temp);
                 numCheck(M);
                 mod();
             }
             else {
                 if (temp[0] == 'x'){
-                    y = 0;
-                    z = 0;
-                    modLetter();
+                    local2 = x;
                 }
                 else if (temp[0] == 'y'){
-                    x = 0;
-                    z = 0;
-                    modLetter();
+                    local2 = y;
                 }
                 else if (temp[0] == 'z'){
-                    x = 0;
-                    y = 0;
-                    modLetter();
+                    local2 = z;
                 }
+                modLetter(local1, local2);
             }
             break;
         case '^':
             temp.erase(0, 2);
+            if (operation[0] == 'x' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << pow(forX, M) << endl;
+                break;
+            }
+            else if (operation[0] == 'y' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << pow(forY, M) << endl;
+                break;
+            }
+            else if (operation[0] == 'z' && (temp[0] >= 48 && temp[0] <= 57)){
+                M = stof(temp);
+                numCheck(M);
+                cout << "Answer: " << pow(forZ, M) << endl;
+                break;
+            }
+
             if (temp[0] >= 48 && temp[0] <= 57){
-                M = stoi(temp);
+                M = stof(temp);
                 numCheck(M);
                 exp();
             }
             else {
                 if (temp[0] == 'x'){
-                    y = 0;
-                    z = 0;
-                    expLetter();
+                    local2 = x;
                 }
                 else if (temp[0] == 'y'){
-                    x = 0;
-                    z = 0;
-                    expLetter();
+                    local2 = y;
                 }
                 else if (temp[0] == 'z'){
-                    x = 0;
-                    y = 0;
-                    expLetter();
+                    local2 = z;
                 }
+                expLetter(local1, local2);
             }
             break;
         }
     }
 }
 
-void Calculator::toDouble(string operation){
-    int len = operation.length();
-    for (int i = 0; i < len; i++){
-        if (operation[i] == '.'){
-            cout.setf(ios::fixed, ios::floatfield);
-            cout.precision(1);
-        }
-    }
+void Calculator::print() {
+    cout << "Answer: " << result << endl;  
 }

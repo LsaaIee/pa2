@@ -8,13 +8,15 @@ class Calculator{
   private: 
     float N;
     float M;
-    string oper;
+    string operation;
     float x;
     float y;
     float z;
     float forX;
     float forY;
     float forZ;
+    int len;
+    float result;
 
   public:
     float add();
@@ -23,16 +25,16 @@ class Calculator{
     float div();
     float mod();
     float exp();
-    float addLetter();
-    float subLetter();
-    float mulLetter();
-    float divLetter();
-    float modLetter();
-    float expLetter();
+    float addLetter(float, float);
+    float subLetter(float, float);
+    float mulLetter(float, float);
+    float divLetter(float, float);
+    float modLetter(float, float);
+    float expLetter(float, float);
     float numCheck(float N);
 
     void setValue(string oper);
-    void toDouble(string oper);
+    void print();
 };
 
 #endif
