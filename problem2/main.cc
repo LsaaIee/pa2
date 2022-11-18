@@ -11,8 +11,12 @@ int main(){
 
   while(true){
     cout << "Enter your equation to calculate: ";
-  getline(cin, operation);
-  calculator.setValue(operation);
+    getline(cin, operation);
+    calculator.toDouble(operation);
+    if (operation == "quit"){
+      break;
+    }
+    calculator.setValue(operation);
   }
   
   return 0;
